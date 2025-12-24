@@ -31,6 +31,7 @@ php artisan db:seed
 - MySQL8.0.26
 
 ## ER図
+<img width="891" height="801" alt="Freemarket drawio (2)" src="https://github.com/user-attachments/assets/5078c526-a778-4d6c-86f7-e0b3f7cb0f7c" />
 
 ## URL
 - 開発環境：http://localhost/
