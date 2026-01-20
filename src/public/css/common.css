@@ -1,0 +1,134 @@
+.header {
+  background: #000;
+  color: #fff;
+}
+
+.header__inner {
+  height: 60px;
+  width: 100%;
+  padding: 0 18px;
+
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.header__logo {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.header__logo img {
+  height: 28px;
+  width: auto;
+  display: block;
+}
+
+/* =========================
+検索バー関連
+========================= */
+
+.header__search {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.header__search input[type="text"] {
+  width: min(500px, 100%);
+  height: 34px;
+  padding: 0 12px;
+
+  border: none;
+  border-radius: 3px;
+
+  background: #fff;
+  color: #111;
+  font-size: 13px;
+  outline: none;
+}
+
+.header__search input[type="text"]::placeholder {
+  color: #777;
+}
+
+/* =========================
+右側ボタン関連
+========================= */
+
+.header__button {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 2vw, 28px);
+  white-space: nowrap;
+}
+
+.header__button a,
+.header__button button {
+  color: #fff;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.header__button a:hover,
+.header__button button:hover {
+  opacity: 0.85;
+}
+
+/* 出品ボタン */
+.header__button .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  height: 34px;
+  padding: 0 14px;
+
+  background: #fff;
+  color: #111;
+  border-radius: 3px;
+
+  font-weight: 700;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.header__button form {
+  margin: 0;
+}
+
+.header__button form button {
+  padding: 0;
+}
+
+/* =========================
+帯域指定レスポンシブ
+========================= */
+
+@media (min-width: 1400px) and (max-width: 1540px) {
+  .header__search input[type="text"] {
+    width: min(680px, 100%);
+  }
+
+/* タブレット帯（768-850px)*/
+@media (min-width: 768px) and (max-width: 850px) {
+  .header__search input[type="text"] {
+    width: min(420px, 100%);
+  }
+
+  .header__button {
+    gap: 12px;
+  }
+
+  .header__button .btn {
+    padding: 0 10px;
+  }
+}

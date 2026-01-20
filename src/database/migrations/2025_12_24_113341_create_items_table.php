@@ -21,9 +21,7 @@ class CreateItemsTable extends Migration
             $table->string('brand_name');
             $table->integer('price');
             $table->text('description');
-            $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
             $table->tinyInteger('condition');
-            $table->text('comment')->nullable();
             $table->timestamps();
         });
     }

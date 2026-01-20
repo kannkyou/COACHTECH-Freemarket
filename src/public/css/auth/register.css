@@ -1,0 +1,125 @@
+/* public/css/auth/register.css */
+
+.register-form__content {
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 60px 20px 40px;
+}
+
+.register-form__heading {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.register-form__heading h1 {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin: 0;
+}
+
+/* form */
+.form {
+  width: 100%;
+}
+
+/* group */
+.form__group {
+  margin-bottom: 18px;
+}
+
+.form__group-title {
+  margin-bottom: 8px;
+}
+
+.form__label--item {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 700;
+  color: #111;
+}
+
+/* input */
+.form__group-content {
+  width: 100%;
+}
+
+.form__input--text input {
+  width: 100%;
+  height: 44px;
+  padding: 0 12px;
+  border: 1px solid #cfcfcf;
+  border-radius: 2px;
+  background: #fff;
+  font-size: 14px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+/* focus */
+.form__input--text input:focus {
+  border-color: #999;
+}
+
+/* error */
+.form__error {
+  min-height: 18px; /* エラーがない時も高さを確保してガタつき防止 */
+  margin-top: 6px;
+  font-size: 12px;
+  color: #d93025;
+  line-height: 1.4;
+}
+
+/* button */
+.form__button {
+  margin-top: 26px;
+}
+
+.form__button-submit {
+  width: 100%;
+  height: 44px;
+  border: none;
+  border-radius: 2px;
+  background: #ff4b4b; /* 画像の赤に寄せる */
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.form__button-submit:hover {
+  filter: brightness(0.95);
+}
+
+.form__button-submit:active {
+  transform: translateY(1px);
+}
+
+/* link */
+.login__link {
+  margin-top: 18px;
+  text-align: center;
+}
+
+.login__button-submit {
+  display: inline-block;
+  font-size: 12px;
+  color: #1e63d6;
+  text-decoration: none;
+}
+
+.login__button-submit:hover {
+  text-decoration: underline;
+}
+
+/* small screens */
+@media (max-width: 480px) {
+  .register-form__content {
+    padding: 40px 16px 32px;
+  }
+
+  .register-form__heading h1 {
+    font-size: 20px;
+  }
+}
