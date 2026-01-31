@@ -37,7 +37,7 @@ class FortifyServiceProvider extends ServiceProvider
             }
 
             throw ValidationException::withMessages([
-                'email' => ['メールアドレスまたはパスワードが一致しません'],
+                'email' => ['ログイン情報が登録されていません'],
             ]);
         });
 

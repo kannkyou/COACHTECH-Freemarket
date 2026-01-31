@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 use App\Http\Controllers\ItemController;
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MypageController;
 use App\Http\Controllers\MylistController;
 use App\Http\Controllers\CommentController;
@@ -13,16 +13,12 @@ use App\Http\Controllers\ShippingAddressController;
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
 */
 
-Route::get('/', [ItemController::class, 'index']) 
+Route::get('/', [ItemController::class, 'index'])
     ->middleware('profile.completed')
     ->name('items.index');
+
 
 Route::middleware(['auth', 'verified', 'profile.completed'])
     ->prefix('mypage')
@@ -41,22 +37,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 Route::get('/item/{item}', [ItemController::class, 'show'])->name('items.show');
 
-Route::middleware('auth', 'verified')->group(function () {
+
+Route::middleware(['auth', 'verified'])->group(function () {
+
     Route::post('/items/{item}/mylist/toggle', [MylistController::class, 'toggle'])
         ->name('items.mylist.toggle');
-});
 
-Route::middleware('auth', 'verified')->group(function () {
     Route::post('/item/{item}/comments', [CommentController::class, 'store'])
         ->name('comments.store');
-});
 
-Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/purchase/{item}', [PurchaseController::class, 'create'])->name('purchase.create');
     Route::post('/purchase/{item}', [PurchaseController::class, 'store'])->name('purchase.store');
-});
 
-Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/purchase/{item}/shipping', [ShippingAddressController::class, 'edit'])
         ->name('purchase.shipping.edit');
 
@@ -64,5 +56,30 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('purchase.shipping.update');
 });
 
+
 Route::get('/purchase/{item}/success', [PurchaseController::class, 'success'])
     ->name('purchase.success');
+
+
+Route::middleware(['auth', 'signed'])->group(function () {
+    Route::get('/email/verify/{id}/{hash}', function (Request $request) {
+        return view('auth.verify-confirm', [
+            'signedUrl' => $request->fullUrl(),
+        ]);
+
+    })->name('verification.confirm');
+
+
+    Route::post('/email/verify/{id}/{hash}', function (Request $request, $id) {
+
+        $user = \App\Models\User::findOrFail($id);
+
+        if (! $user->hasVerifiedEmail()) {
+            $user->markEmailAsVerified();
+        }
+
+        return redirect('/');
+
+    })->name('verification.complete');
+
+});
