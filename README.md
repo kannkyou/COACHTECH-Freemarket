@@ -29,12 +29,13 @@ php artisan storage:link
 - MySQL8.0.26
 
 ## ER図
-<img width="891" height="1051" alt="FreemarketER drawio" src="https://github.com/user-attachments/assets/e312e2ac-d04b-4523-9889-c1b0a71dad6c" />
+<img width="891" height="1051" alt="Freemarket drawio" src="https://github.com/user-attachments/assets/eb2876e4-db6a-4e15-bc7a-1570d6776ce2" />
 
 ## URL
 - 開発環境：http://localhost/
 - phpMyAdmin:：http://localhost:8080/
 
+
 ## 注意事項
-- 会員登録のメール認証の際は、http://localhost:8025/に認証メールが届くためそちらを参照すること。
-- Stripe決済でカードを利用する際は公式に指定されているダミーナンバー（https://docs.stripe.com/testing#cards）を参照すること。
+- 会員登録のメール認証の際は、http://localhost:8025/ に認証メールが届くためそちらを参照すること。
+- Stripe決済でカードを利用する際は公式に指定されているダミーナンバー （https://docs.stripe.com/testing#cards） を参照すること。
