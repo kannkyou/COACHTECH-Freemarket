@@ -7,12 +7,33 @@
 @section('content')
 <div class="index-page">
 
-  {{-- タブ --}}
-  <div class="index-tabs">
-    <a href="{{ url('/') }}" class="index-tabs__item index-tabs__item--active">おすすめ</a>
-    <a href="{{ url('/?tab=mylist') }}" class="index-tabs__item">マイリスト</a>
-  </div>
+    {{-- タブ --}}
+    @php
+        $tab = $tab ?? request('tab');
+        $keyword = $keyword ?? request('keyword');
+        $query = request()->query();
+    @endphp
 
+    <div class="index-tabs">
+        @php
+            $recommendQuery = $query;
+            unset($recommendQuery['tab']);
+        @endphp
+        <a href="{{ url('/' . (!empty($recommendQuery) ? ('?' . http_build_query($recommendQuery)) : '')) }}"
+           class="index-tabs__item {{ $tab !== 'mylist' ? 'index-tabs__item--active' : '' }}">
+            おすすめ
+        </a>
+
+        {{-- マイリストkeywordは維持 --}}
+        @php
+            $mylistQuery = $query;
+            $mylistQuery['tab'] = 'mylist';
+        @endphp
+        <a href="{{ url('/' . ('?' . http_build_query($mylistQuery))) }}"
+           class="index-tabs__item {{ $tab === 'mylist' ? 'index-tabs__item--active' : '' }}">
+            マイリスト
+        </a>
+    </div>
 
     {{-- 商品グリッド --}}
     <div class="item-grid">
@@ -26,6 +47,12 @@
             @endphp
             <a class="item-card" href="{{ route('items.show', $item->id) }}">
                 <div class="item-card__image">
+                    @if ((int)$item->status === 2)
+                        <div class="sold-badge">
+                            <span class="sold-badge__text">SOLD</span>
+                        </div>
+                    @endif
+
                     @if ($firstImage)
                         <img src="{{ $firstImage }}" alt="{{ $item->title }}">
                     @else

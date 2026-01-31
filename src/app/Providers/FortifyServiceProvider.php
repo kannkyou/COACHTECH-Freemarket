@@ -37,14 +37,18 @@ class FortifyServiceProvider extends ServiceProvider
             }
 
             throw ValidationException::withMessages([
-                'email' => ['ログイン情報が登録されていません'],
-            ])->errorBag('login');
+                'email' => ['メールアドレスまたはパスワードが一致しません'],
+            ]);
         });
 
         RateLimiter::for('login', function (Request $request) {
             $email = (string) $request->email;
 
             return Limit::perMinute(10)->by($email . $request->ip());
+        });
+
+        Fortify::verifyEmailView(function () {
+            return view('auth.verify-email');
         });
     }
 }

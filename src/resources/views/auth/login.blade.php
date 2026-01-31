@@ -10,7 +10,7 @@
     <h1>ログイン</h1>
   </div>
 
-  <form class="form" action="{{ route('login') }}" method="POST">
+  <form class="form" action="{{ route('login') }}" method="POST" novalidate>
     @csrf
 
     <div class="form__group">
@@ -28,7 +28,7 @@
         </div>
 
         <p class="form__error">
-          @error('email', 'login')
+          @error('email')
             {{ $message }}
           @enderror
         </p>
@@ -49,7 +49,7 @@
         </div>
 
         <p class="form__error">
-          @error('password', 'login')
+          @error('password')
             {{ $message }}
           @enderror
         </p>

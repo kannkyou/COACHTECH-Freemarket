@@ -1,0 +1,130 @@
+.purchase {
+    width: 100%;
+}
+
+.purchase__inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 28px 24px 40px;
+}
+
+.purchase__grid {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 32px;
+    align-items: start;
+}
+
+.purchase-item {
+    display: grid;
+    grid-template-columns: 96px 1fr;
+    gap: 16px;
+    align-items: center;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #cfcfcf;
+}
+
+.purchase-item__thumb img {
+    width: 96px;
+    height: 96px;
+    object-fit: cover;
+    display: block;
+}
+
+.purchase-item__placeholder {
+    width: 96px;
+    height: 96px;
+    background: #d9d9d9;
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+    color: #222;
+}
+
+.purchase-item__title {
+    font-weight: 700;
+    color: #111;
+}
+
+.purchase-item__price {
+    margin-top: 6px;
+    font-weight: 700;
+}
+
+.purchase-section {
+    padding: 18px 0;
+    border-bottom: 1px solid #cfcfcf;
+}
+
+.purchase-section__head {
+    font-weight: 700;
+    margin-bottom: 10px;
+    font-size: 12px;
+}
+
+.purchase-section__head--row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.purchase-link {
+    font-size: 12px;
+    color: #2b6fff;
+    text-decoration: none;
+}
+
+.purchase-select {
+    width: 200px;
+    height: 28px;
+    font-size: 12px;
+}
+
+.purchase-address {
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+.purchase-box {
+    border: 1px solid #cfcfcf;
+}
+
+.purchase-box__row {
+    display: flex;
+    justify-content: space-between;
+    padding: 18px 16px;
+    border-bottom: 1px solid #cfcfcf;
+    font-size: 12px;
+}
+
+.purchase-box__row:last-child {
+    border-bottom: none;
+}
+
+.purchase-btn {
+    margin-top: 18px;
+    width: 100%;
+    height: 44px;
+    border: none;
+    background: #ff4b4b;
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.purchase-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.form-error {
+    margin-top: 8px;
+    color: #ff4b4b;
+    font-size: 12px;
+}
+
+@media (max-width: 900px) {
+    .purchase__grid {
+        grid-template-columns: 1fr;
+    }
+}

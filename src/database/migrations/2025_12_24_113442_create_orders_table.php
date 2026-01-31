@@ -24,6 +24,7 @@ class CreateOrdersTable extends Migration
             $table->string('shipping_postal_code');
             $table->string('shipping_address');
             $table->string('shipping_building')->nullable();
+            $table->string('stripe_session_id')->nullable()->unique();
             $table->timestamp('paid_at')->nullable();
             $table->timestamps();
         });

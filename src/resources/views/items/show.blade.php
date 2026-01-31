@@ -33,6 +33,10 @@
                         : null;
                 @endphp
 
+                @if ((int)$item->status === 2)
+                    <div class="sold-badge"><span class="sold-badge__text">SOLD</span></div>
+                @endif
+                
                 @if ($mainImage)
                     <img src="{{ $mainImage }}" alt="{{ $item->title }}">
                 @else
@@ -63,15 +67,19 @@
                         <span class="meta-button__count" id="favoriteCount">{{ $favoriteCount }}</span>
                     </button>
 
-                    {{-- コメント数（今は表示だけ） --}}
+                    {{-- コメント数 --}}
                     <div class="meta-button meta-button--static">
                         <img src="{{ asset('images/comment.png') }}" alt="">
                         <span class="meta-button__count">{{ $comments->count() }}</span>
                     </div>
                 </div>
 
-                {{-- 購入ボタン（今は見た目だけ） --}}
-                <button type="button" class="item-show__buy">購入手続きへ</button>
+                {{-- 購入ボタン --}}
+                @if ((int)$item->status === 2 || (auth()->check() && (int) $item->seller_id === (int) auth()->id()))
+                    <button type="button" class="item-show__buy" disabled>購入できません</button>
+                @else
+                    <a href="{{ route('purchase.create', $item->id) }}" class="item-show__buy">購入手続きへ</a>
+                @endif
 
                 {{-- 商品説明 --}}
                 <h2 class="item-show__h2">商品説明</h2>
@@ -108,23 +116,40 @@
                 <div class="item-show__comments">
                     @forelse ($comments as $comment)
                         <div class="comment">
-                            <div class="comment__avatar"></div>
+                            <div class="comment__avatar">
+                                 @php
+                                    $img = $comment->user->user_image ?? null;
+                                    // user_image が「storage 配下のパス」を保存している前提（例: user_images/xxx.jpg）
+                                    $src = $img ? asset('storage/' . $img) : null;
+                                @endphp
+
+                                @if ($src)
+                                    <img class="comment__avatar-img" src="{{ $src }}" alt="">
+                                @else
+                                    <div class="comment__avatar-placeholder"></div>
+                                @endif
+                            </div>
                             <div class="comment__body">
                                 <div class="comment__name">{{ $comment->user->name ?? 'user' }}</div>
-                                <div class="comment__text">{{ $comment->body }}</div>
+                                <div class="comment__text">{{ $comment->comment }}</div>
                             </div>
                         </div>
                     @empty
                         <div class="item-show__no-comment">まだコメントはありません</div>
                     @endforelse
+                    <p class="form-error">
+                        @error('description') {{ $message }} @enderror
+                    </p>
                 </div>
 
-                {{-- コメント投稿（器だけ：後で route を実装） --}}
                 <h2 class="item-show__h2">商品へのコメント</h2>
 
-                <form method="POST" action="#" class="comment-form">
+                <form method="POST" action="{{ route('comments.store', $item->id) }}" class="comment-form">
                     @csrf
-                    <textarea class="comment-form__textarea" name="comment" rows="5"></textarea>
+                    <textarea class="comment-form__textarea" name="comment" rows="5">{{ old('comment') }}</textarea>
+                        @error('comment')
+                            <p class="form-error">{{ $message }}</p>
+                        @enderror
                     <button type="submit" class="comment-form__submit">コメントを送信する</button>
                 </form>
             </div>

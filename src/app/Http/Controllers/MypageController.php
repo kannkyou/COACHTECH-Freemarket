@@ -5,18 +5,29 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Item;
+use App\Models\Order;
+use App\Http\Requests\ProfileRequest;
 
 class MypageController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request) //マイページ
     {
-        $items = Item::with('images')
+        $user = $request->user();
+        $tab = $request->query('tab', 'sell'); // sell / buy
+
+        // 出品した商品
+        $sellingItems = $user->sellingItems()
+            ->with('images')
             ->latest()
             ->get();
 
-        return view('index', [
-            'items' => $items,
-        ]);
+        // 購入した商品
+        $buyOrders = $user->buyingOrders()
+            ->with(['item.images'])
+            ->latest()
+            ->get();
+
+        return view('mypage.mypage', compact('user', 'tab', 'sellingItems', 'buyOrders'));
     }
 
     public function editProfile(Request $request)
@@ -26,16 +37,9 @@ class MypageController extends Controller
         ]);
     }
 
-    public function updateProfile(Request $request)
+    public function updateProfile(ProfileRequest $request)
     {
-        $data = $request->validate([
-            'name'        => ['required', 'string', 'max:255'],
-            'postal_code' => ['required', 'string', 'max:7'],
-            'address'     => ['required', 'string', 'max:255'],
-            'building'    => ['nullable', 'string', 'max:255'],
-            'user_image'  => ['nullable', 'image', 'max:2048'],
-        ]);
-
+        $data = $request->validated();
         $user = $request->user();
 
         //旧画像パスを保持

@@ -30,7 +30,7 @@ class ExhibitionRequest extends FormRequest
             'category_ids.*' => ['integer', 'exists:categories,id'],
             'condition' => ['required', 'integer', 'in:1,2,3,4'],
             'title' => ['required', 'string', 'max:255'],
-            'brand_name' => ['required', 'string', 'max:255'],
+            'brand_name' => ['nullable', 'string', 'max:255'],
             'description' => ['required', 'string', 'max:255'],
             'price' => ['required', 'integer', 'min:1'],
         ];

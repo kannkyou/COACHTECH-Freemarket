@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use App\Models\User;
+use App\Models\Comment;
+
 
 class Item extends Model
 {
@@ -40,4 +42,9 @@ class Item extends Model
         return $this->belongsToMany(User::class, 'mylist', 'item_id', 'user_id')
             ->withTimestamps();
         }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
